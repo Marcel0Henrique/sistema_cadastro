@@ -1,0 +1,23 @@
+.text_area{
+    resize: none;
+}
+.text-white{
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.text-black{
+    font-weight: 100;
+}
+
+.text-red{
+    color: red;
+}
+
+.space{
+    padding-top: 3em;
+}
+
+.btn_space{
+    margin-right: 1em;
+}
