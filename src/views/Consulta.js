@@ -1,4 +1,5 @@
 import React from 'react';
+import ProdutoService from '../app/produtoService';
 
 
 
@@ -7,6 +8,17 @@ class Consulta extends React.Component {
     state = {
         produtos: []
     }
+
+    constructor(){
+        super()
+        this.service = new ProdutoService();
+    }
+
+    componentDidMount(){
+        const produtos = this.service.obterProduto();
+        this.setState({produtos})
+    }
+
     render() {
         return (
             <>
