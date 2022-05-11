@@ -21,6 +21,23 @@ class Consulta extends React.Component {
                                 <th scope='col'>Fornecedor</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            {
+                                this.state.produtos.map(
+                                    produto =>{
+                                        return(
+                                            <tr>
+                                                <th>{produto.nome}</th>
+                                                <th>{produto.codigo}</th>
+                                                <th>{produto.descricao}</th>
+                                                <th>{produto.preco}</th>
+                                                <th>{produto.fornecedor}</th>
+                                            </tr>
+                                        )
+                                    }
+                                )
+                            }
+                        </tbody>
                     </table>
                 </div>
             </>
