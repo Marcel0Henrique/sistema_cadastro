@@ -83,7 +83,7 @@ class Cadastro extends React.Component {
 
                         <form>
                             <fieldset>
-                                <div className="row">
+                                <div className="row mb-5 mt-3">
                                     <div className="col">
                                         <label>Nome <span className='text-red'>*</span> </label>
                                         <input type="text" id='input_nome' name="nome" className="form-control" value={this.state.nome} onChange={this.onChange} required></input>
@@ -94,16 +94,16 @@ class Cadastro extends React.Component {
                                     </div>
                                 </div>
 
-                                <br></br>
+                                
 
-                                <div className="form-group">
+                                <div className="form-group mb-5">
                                     <label>Descrição <span className='text-red'>*</span> </label>
                                     <textarea className="form-control text_area" name="descricao" id="textArea_descricao" rows="6" value={this.state.descricao} onChange={this.onChange} required></textarea>
                                 </div>
 
-                                <br></br>
+                                
 
-                                <div className="row">
+                                <div className="row mb-5">
                                     <div className="col">
                                         <label>Preço <span className='text-red'>*</span> </label>
                                         <input type="number" id='input_preco' name="preco" className="form-control" value={this.state.preco} onChange={this.onChange} required></input>
@@ -114,20 +114,12 @@ class Cadastro extends React.Component {
                                     </div>
                                 </div>
 
-                                <br></br>
-
-
+                                
                                 <div>
                                     <button type="button" className="btn btn-success btn_space" onClick={this.onSubmit} >Salvar</button>
 
                                     <button type="button" className="btn btn-info" onClick={this.limparCampos} >Limpar</button>
                                 </div>
-
-
-
-
-
-
 
                             </fieldset>
                         </form>
