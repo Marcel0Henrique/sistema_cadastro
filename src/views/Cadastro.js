@@ -59,7 +59,7 @@ class Cadastro extends React.Component {
 
     render() {
         return (
-            <div className="container space">
+            <div className="container mt-5">
 
 
 
