@@ -2,6 +2,7 @@ import React from "react";
 import './Cadastro.css';
 import ProdutoService from "../app/produtoService";
 
+import { withRouter } from 'react-router-dom';
 
 class Cadastro extends React.Component {
     state = {
@@ -14,6 +15,11 @@ class Cadastro extends React.Component {
         sucesso: false
     }
 
+    constructor() {
+        super()
+        this.service = new ProdutoService();
+    }
+
     onChange = (event) => {
         const valor = event.target.value
         const nomeDoCampo = event.target.name
@@ -22,8 +28,28 @@ class Cadastro extends React.Component {
         })
     }
 
+    onSubmit = (event) => {
+
+        const produto = {
+            'nome': this.state.nome,
+            'codigo': this.state.codigo,
+            'descricao': this.state.descricao,
+            'preco': this.state.preco,
+            'fornecedor': this.state.fornecedor,
+        }
+
+        try {
+            this.setState({ sucesso: true })
+            this.service.salvar(produto);
+            this.limparCampos()
+
+        } catch (error) {
+            const errors = error.errors
+            this.setState({ errors: errors })
+        }
+    }
+
     limparCampos = (event) => {
-        console.log("teste")
         this.setState({
             nome: '',
             codigo: '',
@@ -34,28 +60,18 @@ class Cadastro extends React.Component {
         })
     }
 
-    onSubmit = (event) => {
-        this.setState({ sucesso: true })
-        const produto = {
-            'nome': this.state.nome,
-            'codigo': this.state.codigo,
-            'descricao': this.state.descricao,
-            'preco': this.state.preco,
-            'fornecedor': this.state.fornecedor,
+    componentDidMount(){
+        const codigo = this.props.match.params.codigo
+        if(codigo){
+            const resultado = this.service.obterProduto().filter( produto=> produto.codigo === codigo )
+
+            if(resultado.length === 1){
+                const produtoEncontrado = resultado[0]
+                this.setState({ ...produtoEncontrado })
+            }
         }
-
-        this.service.salvar(produto);
-        this.limpaCampos()
-
-
     }
-
-
-
-    constructor() {
-        super()
-        this.service = new ProdutoService();
-    }
+   
 
     render() {
         return (
@@ -80,7 +96,6 @@ class Cadastro extends React.Component {
                             )
                         }
 
-
                         <form>
                             <fieldset>
                                 <div className="row mb-5 mt-3">
@@ -94,14 +109,14 @@ class Cadastro extends React.Component {
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div className="form-group mb-5">
                                     <label>Descrição <span className='text-red'>*</span> </label>
                                     <textarea className="form-control text_area" name="descricao" id="textArea_descricao" rows="6" value={this.state.descricao} onChange={this.onChange} required></textarea>
                                 </div>
 
-                                
+
 
                                 <div className="row mb-5">
                                     <div className="col">
@@ -114,7 +129,7 @@ class Cadastro extends React.Component {
                                     </div>
                                 </div>
 
-                                
+
                                 <div>
                                     <button type="button" className="btn btn-success btn_space" onClick={this.onSubmit} >Salvar</button>
 
@@ -131,4 +146,4 @@ class Cadastro extends React.Component {
         )
     }
 }
-export default Cadastro;
+export default withRouter(Cadastro);

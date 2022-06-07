@@ -15,6 +15,9 @@ class Rotas extends React.Component {
                 </Route>
                 <Route path='/home' component={Home} />
                 <Route path='/cadastro' component={Cadastro} />
+                <Route exact={true} path="/cadastro/:codigo">
+                    <Cadastro />
+                </Route>
                 <Route path='/consulta' component={Consulta} />
                 
 

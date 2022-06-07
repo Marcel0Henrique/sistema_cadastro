@@ -1,5 +1,6 @@
 import React from 'react';
 import ProdutoService from '../app/produtoService';
+import {withRouter} from 'react-router-dom';
 
 
 
@@ -9,15 +10,21 @@ class Consulta extends React.Component {
         produtos: []
     }
 
-    constructor(){
+    constructor() {
         super()
         this.service = new ProdutoService();
     }
 
-    componentDidMount(){
-        const produtos = this.service.obterProduto();
-        this.setState({produtos})
+    preparaEditar = (codigo) => {
+        this.props.history.push(`/cadastro/${codigo}`)
     }
+
+    componentDidMount() {
+        const produtos = this.service.obterProduto();
+        this.setState({ produtos })
+    }
+
+    
 
     render() {
         return (
@@ -31,19 +38,24 @@ class Consulta extends React.Component {
                                 <th scope='col'>Descrição</th>
                                 <th scope='col'>Preço</th>
                                 <th scope='col'>Fornecedor</th>
+                                <th scope='col'></th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 this.state.produtos.map(
-                                    produto =>{
-                                        return(
+                                    produto => {
+                                        return (
                                             <tr>
                                                 <th>{produto.nome}</th>
                                                 <th>{produto.codigo}</th>
                                                 <th>{produto.descricao}</th>
                                                 <th>{produto.preco}</th>
                                                 <th>{produto.fornecedor}</th>
+                                                <th>                                                   
+                                                        <button className='btn btn-outline-primary mr-2' onClick={() => this.preparaEditar(produto.codigo)}>Editar</button>
+                                                        <button className='btn btn-outline-danger'>Remover</button>                                                   
+                                                </th>
                                             </tr>
                                         )
                                     }
@@ -59,4 +71,4 @@ class Consulta extends React.Component {
 
 
 
-export default Consulta;
+export default withRouter(Consulta);
